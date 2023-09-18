@@ -14,29 +14,13 @@ const controls = document.querySelector(".controls")
 const repeatCheckbox = document.querySelector("#repeat-playlist")
 const repeatButton = document.querySelector(".repeat");
 const repeatButtonIcon = document.querySelector(".fa-repeat");
+const playlistItems = document.querySelectorAll('.playlist ul li')
 
 let isPlaying = false
 let currentSongIndex = 0;
 let isRepeat = false;
 let musicListeningState = 1;
 
-
-
-function handleIterationState(){
-  if(musicListeningState === 1){
-    playNextSong();
-  } else if(musicListeningState === 2){
-    playSong(currentSongIndex);
-  } else if(musicListeningState === 3){
-    const playlistItems = document.querySelectorAll('.playlist ul li');
-    const lastItemInPlaylist = Array.from(playlistItems).indexOf(playlistItems[playlistItems.length - 1]);
-    if(lastItemInPlaylist === currentSongIndex){
-      playSong(0)
-    } else {
-      playNextSong()
-    }
-  }
-}
 
 function playSong(index) {
   const playlistItems = document.querySelectorAll('.playlist ul li');
@@ -54,6 +38,22 @@ function playSong(index) {
     pauseOverlay.classList.remove("active");
     isPlaying = true;
     currentSongIndex = index;
+  }
+}
+
+function handleRepeatInteractionState(){
+  if(musicListeningState === 1){
+    playNextSong();
+  } else if(musicListeningState === 2){
+    playSong(currentSongIndex);
+  } else {
+    const playlistItems = document.querySelectorAll('.playlist ul li');
+    const lastItemInPlaylist = Array.from(playlistItems).indexOf(playlistItems[playlistItems.length - 1]);
+    if(lastItemInPlaylist === currentSongIndex){
+      playSong(0)
+    } else {
+      playNextSong()
+    }
   }
 }
 
@@ -152,7 +152,7 @@ audio.addEventListener('ended', () => {
   playPauseButton.classList.add('play')
   playPauseButton.setAttribute("title", "play")
   playPauseButton.innerHTML = "<i class='fa-solid fa-play'></i>"
-  handleIterationState();
+  handleRepeatInteractionState();
   isPlaying = false
 })
 
@@ -185,6 +185,38 @@ playlistBtn.addEventListener("click", () => {
   controls.classList.toggle("hidden")
 })
 
+
+playlistItems.forEach((item, index) => {
+  item.addEventListener('click', () => {
+    playSong(index)
+    const audioFile = item.getAttribute('data-audio-file')
+
+    audio.src = audioFile
+
+    audio.play()
+
+    currentSong.textContent = `Now Playing: ${item.textContent}`
+
+    albumCover.src = item.getAttribute("data-image-file")
+
+    playlist.classList.remove('active')
+    currentSong.classList.remove('hidden')
+    controls.classList.remove('hidden')
+
+    playPauseButton.classList.remove('play')
+    playPauseButton.classList.add('pause')
+    playPauseButton.setAttribute("title", "pause")
+    playPauseButton.innerHTML = "<i class='fa-solid fa-pause'></i>"
+    pauseOverlay.classList.remove("active")
+    isPlaying = true
+  })
+})
+
+document.querySelector('.previous').addEventListener('click', () => {
+  playPreviousSong()
+})
+
+
 // Modifies the state of musicListeningState
 
 /* 
@@ -196,6 +228,7 @@ playlistBtn.addEventListener("click", () => {
 */
 repeatButton.addEventListener("click", () => {
   musicListeningState++;
+  console.log(musicListeningState);
   if(musicListeningState === 1){
     // display icon
     return;
@@ -206,12 +239,14 @@ repeatButton.addEventListener("click", () => {
     // display icon
     return;
   }
-})
 
-document.querySelector('.previous').addEventListener('click', () => {
-  playPreviousSong()
+  return musicListeningState = 1;
 })
 
 document.querySelector('.next').addEventListener('click', () => {
   playNextSong()
+})
+
+repeatCheckbox.addEventListener('change', () => {
+  isRepeat = repeatCheckbox.checked;
 })
