@@ -2,9 +2,8 @@
 require_once 'getID3/getid3/getid3.php';
 include("config/config.php");
 
-// File upload handling
 $targetDirectory = "playlist/";
-$maxFileSize = 20 * 1024 * 1024; // 20MB (adjust as needed)
+$maxFileSize = 20 * 1024 * 1024;
 $allowedExtensions = ["mp3"];
 
 if (!file_exists($targetDirectory)) {
@@ -25,21 +24,14 @@ if (!in_array(strtolower($extension), $allowedExtensions)) {
 }
 
 if (move_uploaded_file($uploadedFile, $targetFile)) {
-    // Initialize getID3
     $getID3 = new getID3();
-
-    // Analyze the uploaded MP3 file
     $fileInfo = $getID3->analyze($targetFile);
 
     if (isset($fileInfo['comments']['picture'][0]['data'])) {
-        // Album cover image found
         $coverImageData = $fileInfo['comments']['picture'][0]['data'];
+        $coverFileName = "images/" . uniqid() . '.jpg';
 
-        // Save the album cover image to the "images" folder
-        $coverFileName = "images/" . uniqid() . '.jpg'; // Use a unique name
         file_put_contents($coverFileName, $coverImageData);
-
-        // You can now use $coverFileName to store the image file path in your database or perform other actions.
     }
 
     $songname = str_replace(".mp3", "", $fileName);
@@ -49,8 +41,6 @@ if (move_uploaded_file($uploadedFile, $targetFile)) {
         echo "Song has been added to the playlist.";
     } else {
         echo "Unable to insert the song into the database. " . $stmt->error;
-
-        // If the insertion fails, remove the uploaded file to avoid orphaned files.
         unlink($targetFile);
     }
 } else {
