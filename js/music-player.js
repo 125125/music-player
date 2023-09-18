@@ -12,10 +12,31 @@ const playlist = document.querySelector(".playlist")
 const currentSong = document.querySelector(".current-song")
 const controls = document.querySelector(".controls")
 const repeatCheckbox = document.querySelector("#repeat-playlist")
+const repeatButton = document.querySelector(".repeat");
+const repeatButtonIcon = document.querySelector(".fa-repeat");
 
 let isPlaying = false
 let currentSongIndex = 0;
 let isRepeat = false;
+let musicListeningState = 1;
+
+
+
+function handleIterationState(){
+  if(musicListeningState === 1){
+    playNextSong();
+  } else if(musicListeningState === 2){
+    playSong(currentSongIndex);
+  } else if(musicListeningState === 3){
+    const playlistItems = document.querySelectorAll('.playlist ul li');
+    const lastItemInPlaylist = Array.from(playlistItems).indexOf(playlistItems[playlistItems.length - 1]);
+    if(lastItemInPlaylist === currentSongIndex){
+      playSong(0)
+    } else {
+      playNextSong()
+    }
+  }
+}
 
 function playSong(index) {
   const playlistItems = document.querySelectorAll('.playlist ul li');
@@ -33,8 +54,6 @@ function playSong(index) {
     pauseOverlay.classList.remove("active");
     isPlaying = true;
     currentSongIndex = index;
-  } else if (isRepeat) {
-    playSong(0);
   }
 }
 
@@ -133,7 +152,7 @@ audio.addEventListener('ended', () => {
   playPauseButton.classList.add('play')
   playPauseButton.setAttribute("title", "play")
   playPauseButton.innerHTML = "<i class='fa-solid fa-play'></i>"
-  playNextSong()
+  handleIterationState();
   isPlaying = false
 })
 
@@ -166,32 +185,27 @@ playlistBtn.addEventListener("click", () => {
   controls.classList.toggle("hidden")
 })
 
-const playlistItems = document.querySelectorAll('.playlist ul li')
+// Modifies the state of musicListeningState
 
-playlistItems.forEach((item, index) => {
-  item.addEventListener('click', () => {
-    playSong(index)
-    const audioFile = item.getAttribute('data-audio-file')
+/* 
 
-    audio.src = audioFile
+ state 1 = goes to next song 
+ state 2 = song on repeat
+ state 3 = playlist on repeat
 
-    audio.play()
-
-    currentSong.textContent = `Now Playing: ${item.textContent}`
-
-    albumCover.src = item.getAttribute("data-image-file")
-
-    playlist.classList.remove('active')
-    currentSong.classList.remove('hidden')
-    controls.classList.remove('hidden')
-
-    playPauseButton.classList.remove('play')
-    playPauseButton.classList.add('pause')
-    playPauseButton.setAttribute("title", "pause")
-    playPauseButton.innerHTML = "<i class='fa-solid fa-pause'></i>"
-    pauseOverlay.classList.remove("active")
-    isPlaying = true
-  })
+*/
+repeatButton.addEventListener("click", () => {
+  musicListeningState++;
+  if(musicListeningState === 1){
+    // display icon
+    return;
+  } else if(musicListeningState === 2){
+    // display icon
+    return;
+  } else if(musicListeningState === 3){
+    // display icon
+    return;
+  }
 })
 
 document.querySelector('.previous').addEventListener('click', () => {
@@ -200,8 +214,4 @@ document.querySelector('.previous').addEventListener('click', () => {
 
 document.querySelector('.next').addEventListener('click', () => {
   playNextSong()
-})
-
-repeatCheckbox.addEventListener('change', () => {
-  isRepeat = repeatCheckbox.checked;
 })
