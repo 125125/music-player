@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap");
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+}
+
+.wrapper {
+  width: min(500px, 100% - 50px);
+}
+
+.music-player {
+  display: grid;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+}
+.music-player input {
+  cursor: pointer;
+}
+.music-player img {
+  width: 100%;
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.music-player > * {
+  grid-area: 1/1;
+}
+.music-player:hover :is(.controls, .current-song) {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.music-player .current-song {
+  background: hsla(0, 0%, 0%, 0.8);
+  align-self: start;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(1, 0, 1, 0.54);
+}
+.music-player .current-song.hidden {
+  display: none;
+}
+.music-player .playlist {
+  display: none;
+  justify-self: end;
+  background: hsla(0, 0%, 0%, 0.8);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+.music-player .playlist li {
+  padding: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.music-player .playlist.active {
+  display: block;
+}
+.music-player .pause-overlay {
+  place-self: center;
+  font-size: 3rem;
+  background: hsla(0, 0%, 0%, 0.8);
+  width: 80px;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  display: none;
+}
+.music-player .pause-overlay.active {
+  display: grid;
+  scale: 0.5;
+  animation: fade-out 0.5s linear forwards;
+}
+.music-player .controls {
+  align-self: end;
+  background: hsla(0, 0%, 0%, 0.8);
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(1, 0, 1, 0.54);
+}
+.music-player .controls.hidden {
+  display: none;
+}
+.music-player .controls .progress {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  font-size: 0.8rem;
+}
+.music-player .controls .progress input {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  accent-color: red;
+}
+.music-player .controls .buttons {
+  display: flex;
+  padding-right: 10px;
+}
+.music-player .controls .buttons button {
+  cursor: pointer;
+  color: inherit;
+  background: none;
+  padding: 5px 10px;
+  border: none;
+  width: 40px;
+}
+.music-player .controls .buttons .volume-control {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 0fr;
+  transition: grid-template-columns 0.3s;
+  justify-content: start;
+}
+.music-player .controls .buttons .volume-control:hover {
+  grid-template-columns: auto 1fr;
+}
+.music-player .controls .buttons .volume-control .volume-input {
+  overflow: hidden;
+}
+.music-player .controls .buttons .volume-control .volume-input input {
+  accent-color: red;
+}
+
+@keyframes fade-out {
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}/*# sourceMappingURL=main.css.map */

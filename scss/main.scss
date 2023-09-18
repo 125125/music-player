@@ -1,0 +1,135 @@
+@use "reset";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap');
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items:center;
+}
+
+.wrapper {
+  width: min(500px, 100% - 50px);
+}
+
+.music-player {
+  display: grid;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  input {
+    cursor:pointer;
+  }
+  img {
+    width: 100%;
+    aspect-ratio:3/2;
+    object-fit:cover;
+  }
+  & > * {
+    grid-area:1/1;
+  }
+  &:hover :is(.controls, .current-song) {
+    opacity:1;
+    transition:opacity .3s;
+  }
+  .current-song {
+    background: hsl(0 0% 0% / .8);
+    align-self:start;
+    padding: 10px;
+    opacity:0;
+    transition:opacity 2s cubic-bezier(1, 0, 1, 0.54);
+    &.hidden {
+      display: none;
+    }
+  }
+  .playlist {
+    display: none;
+    justify-self:end;
+    background: hsl(0 0% 0% / .8);
+    overflow-y:auto;
+    scrollbar-gutter: stable;
+    li {
+      padding: 5px;
+      user-select:none;
+      cursor:pointer;
+    }
+    &.active {
+      display: block;
+    }
+  }
+  .pause-overlay {
+    place-self:center;
+    font-size: 3rem;
+    background: hsl(0 0% 0% / .8);
+    width: 80px;
+    aspect-ratio:1;
+    place-items:center;
+    border-radius: 50%;
+    display: none;
+    &.active {
+      display: grid;
+      scale:.5;
+      animation:fade-out .5s linear forwards;
+    }
+  }
+  .controls {
+    align-self:end;
+    background: hsl(0 0% 0% / .8);
+    opacity:0;
+    transition:opacity 2s cubic-bezier(1, 0, 1, 0.54);
+    &.hidden {
+      display: none;
+    }
+    .progress {
+      display: flex;
+      align-items:center;
+      gap:5px;
+      padding:10px;
+      font-size: 0.8rem;
+      input {
+        flex:1;
+        padding: 0;
+        margin: 0;
+        accent-color:red;
+      }
+    }
+    .buttons {
+      display: flex;
+      padding-right:10px;
+      button {
+        cursor:pointer;
+        color:inherit;
+        background: none;
+        padding: 5px 10px;
+        border:none;
+        width: 40px;
+      }
+      .volume-control {
+        display: grid;
+        align-items:center;
+        grid-template-columns:auto 0fr;
+        transition:grid-template-columns .3s;
+        justify-content:start;
+        &:hover {
+          grid-template-columns:auto 1fr;
+        }
+        .volume-input {
+          overflow:hidden;
+          input {
+            accent-color:red;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fade-out {
+  100% {
+    opacity:0;
+    scale:1;
+  }
+}
