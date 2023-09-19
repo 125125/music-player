@@ -19,7 +19,7 @@ const playlistItems = document.querySelectorAll('.playlist ul li')
 let isPlaying = false
 let currentSongIndex = 0;
 let isRepeat = false;
-let musicListeningState = 1;
+let musicListeningState = 0;
 
 
 function playSong(index) {
@@ -46,7 +46,7 @@ function handleRepeatInteractionState(){
     playNextSong();
   } else if(musicListeningState === 2){
     playSong(currentSongIndex);
-  } else {
+  } else if(musicListeningState === 3){
     const playlistItems = document.querySelectorAll('.playlist ul li');
     const lastItemInPlaylist = Array.from(playlistItems).indexOf(playlistItems[playlistItems.length - 1]);
     if(lastItemInPlaylist === currentSongIndex){
@@ -54,6 +54,8 @@ function handleRepeatInteractionState(){
     } else {
       playNextSong()
     }
+  } else {
+    playNextSong();
   }
 }
 
@@ -221,13 +223,15 @@ document.querySelector('.previous').addEventListener('click', () => {
 
 /* 
 
+
  state 1 = goes to next song 
  state 2 = song on repeat
  state 3 = playlist on repeat
 
+
 */
 repeatButton.addEventListener("click", () => {
-  musicListeningState++;
+  ++musicListeningState;
   console.log(musicListeningState);
   if(musicListeningState === 1){
     // display icon
@@ -239,8 +243,7 @@ repeatButton.addEventListener("click", () => {
     // display icon
     return;
   }
-
-  return musicListeningState = 1;
+  return musicListeningState = 0;
 })
 
 document.querySelector('.next').addEventListener('click', () => {
