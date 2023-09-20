@@ -19,7 +19,7 @@ const playlistItems = document.querySelectorAll('.playlist ul li')
 let isPlaying = false
 let currentSongIndex = 0;
 let isRepeat = false;
-let musicListeningState = 0;
+let musicListeningState = 1;
 
 
 function playSong(index) {
@@ -41,9 +41,9 @@ function playSong(index) {
   }
 }
 
-function handleRepeatInteractionState(){
+function handleRepeatInteractionState(prev){
   if(musicListeningState === 1){
-    playNextSong();
+    return prev ? playPreviousSong() : playNextSong();
   } else if(musicListeningState === 2){
     playSong(currentSongIndex);
   } else if(musicListeningState === 3){
@@ -51,25 +51,25 @@ function handleRepeatInteractionState(){
     const lastItemInPlaylist = Array.from(playlistItems).indexOf(playlistItems[playlistItems.length - 1]);
     if(lastItemInPlaylist === currentSongIndex){
       playSong(0)
-    } else {
-      playNextSong()
+    } else if(!prev) {
+      playNextSong();
+    } else{
+      playPreviousSong();
     }
-  } else {
-    playNextSong();
   }
 }
 
 function playNextSong() {
   if (currentSongIndex < playlistItems.length - 1) {
     playSong(currentSongIndex + 1);
-  } else if (isRepeat) {
-    playSong(0);
+  } else {
+    playSong(0)
   }
 }
 
 function playPreviousSong() {
-  if (currentSongIndex > 0) {
-    playSong(currentSongIndex - 1);
+  if(currentSongIndex > 0){
+    playSong(currentSongIndex - 1)
   }
 }
 
@@ -215,41 +215,34 @@ playlistItems.forEach((item, index) => {
 })
 
 document.querySelector('.previous').addEventListener('click', () => {
-  playPreviousSong()
+  handleRepeatInteractionState(true);
 })
 
-
-// Modifies the state of musicListeningState
-
 /* 
-
-
  state 1 = goes to next song 
  state 2 = song on repeat
  state 3 = playlist on repeat
-
-
 */
 repeatButton.addEventListener("click", () => {
   ++musicListeningState;
-  console.log(musicListeningState);
-  if(musicListeningState === 1){
-    // display icon
+  if(musicListeningState === 1){ 
+    repeatButton.innerHTML = '<i class="fa-solid fa-repeat"></i>';
     return;
-  } else if(musicListeningState === 2){
+  } else if(musicListeningState === 2){ 
+    repeatButton.innerHTML = '<i class="fa-solid fa-repeat" style="color: hsl(200 100% 50%);"></i>';
     // display icon
     return;
   } else if(musicListeningState === 3){
+    repeatButton.innerHTML = '<i class="fa-solid fa-repeat" style="color: red;"></i>';
     // display icon
     return;
+  } else {
+    musicListeningState = 1;
+    repeatButton.innerHTML = '<i class="fa-solid fa-repeat"></i>';
+    return;
   }
-  return musicListeningState = 0;
 })
 
 document.querySelector('.next').addEventListener('click', () => {
-  playNextSong()
-})
-
-repeatCheckbox.addEventListener('change', () => {
-  isRepeat = repeatCheckbox.checked;
+  handleRepeatInteractionState(false);
 })
