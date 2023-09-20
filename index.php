@@ -18,8 +18,6 @@ include("config/config.php");
     </form>
     <div class="music-player"><img class="album" src="images/650661362e156.jpg" alt="album" />
       <div class="playlist">
-        <input type="checkbox" id="repeat-playlist">
-        <label for="repeat-playlist" title="Repeat Playlist">Repeat Playlist</label>
         <ul>
           <?php
             $stmt = $conn->prepare("SELECT * FROM songs");
