@@ -10,40 +10,56 @@ if (!file_exists($targetDirectory)) {
     mkdir($targetDirectory, 0777, true);
 }
 
-$uploadedFile = $_FILES['mp3_file']['tmp_name'];
-$fileName = basename($_FILES['mp3_file']['name']);
-$targetFile = $targetDirectory . uniqid() . '_' . $fileName;
+// Check if files were uploaded
+if(isset($_FILES['mp3_files'])) {
+    $uploadCount = count($_FILES['mp3_files']['name']);
 
-if ($_FILES['mp3_file']['size'] > $maxFileSize) {
-    die("File is too large.");
-}
+    for($i = 0; $i < $uploadCount; $i++) {
+        $uploadedFile = $_FILES['mp3_files']['tmp_name'][$i];
+        $fileName = $_FILES['mp3_files']['name'][$i];
 
-$extension = pathinfo($fileName, PATHINFO_EXTENSION);
-if (!in_array(strtolower($extension), $allowedExtensions)) {
-    die("Invalid file type.");
-}
+        // Check if the file field is empty or has no name
+        if (empty($fileName) || $_FILES['mp3_files']['error'][$i] == UPLOAD_ERR_NO_FILE) {
+            echo "File $i is empty. Skipping.<br>";
+            continue;
+        }
 
-if (move_uploaded_file($uploadedFile, $targetFile)) {
-    $getID3 = new getID3();
-    $fileInfo = $getID3->analyze($targetFile);
+        $targetFile = $targetDirectory . uniqid() . '_' . $fileName;
 
-    if (isset($fileInfo['comments']['picture'][0]['data'])) {
-        $coverImageData = $fileInfo['comments']['picture'][0]['data'];
-        $coverFileName = "images/" . uniqid() . '.jpg';
+        if ($_FILES['mp3_files']['size'][$i] > $maxFileSize) {
+            echo "File '$fileName' is too large. Skipping.<br>";
+            continue;
+        }
 
-        file_put_contents($coverFileName, $coverImageData);
+        $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+        if (!in_array(strtolower($extension), $allowedExtensions)) {
+            echo "Invalid file type for '$fileName'. Skipping.<br>";
+            continue;
+        }
+
+        if (move_uploaded_file($uploadedFile, $targetFile)) {
+            $getID3 = new getID3();
+            $fileInfo = $getID3->analyze($targetFile);
+
+            if (isset($fileInfo['comments']['picture'][0]['data'])) {
+                $coverImageData = $fileInfo['comments']['picture'][0]['data'];
+                $coverFileName = "images/" . uniqid() . '.jpg';
+
+                file_put_contents($coverFileName, $coverImageData);
+            }
+
+            $songname = str_replace(".mp3", "", $fileName);
+            $stmt = $conn->prepare("INSERT INTO songs (`name`, `file`, `image`) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $songname, $targetFile, $coverFileName);
+            if($stmt->execute()) {
+                echo "Song '$songname' has been added to the playlist.<br>";
+            } else {
+                echo "Unable to insert the song '$songname' into the database. " . $stmt->error . "<br>";
+                unlink($targetFile);
+            }
+        } else {
+            echo "Upload of '$fileName' failed.<br>";
+        }
     }
-
-    $songname = str_replace(".mp3", "", $fileName);
-    $stmt = $conn->prepare("INSERT INTO songs (`name`, `file`, `image`) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $songname, $targetFile, $coverFileName);
-    if($stmt->execute()) {
-        echo "Song has been added to the playlist.";
-    } else {
-        echo "Unable to insert the song into the database. " . $stmt->error;
-        unlink($targetFile);
-    }
-} else {
-    echo "Upload failed.";
 }
 ?>

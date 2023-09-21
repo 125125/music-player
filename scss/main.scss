@@ -10,15 +10,28 @@ body {
   min-height: 100svh;
   display: grid;
   place-items:center;
+  background: hsl(0 0% 95%);
 }
 
 .wrapper {
   width: min(500px, 100% - 50px);
 }
 
+.modal {
+  position: fixed;
+  inset:0;
+  background: hsl(0 0% 0% / .8);
+  place-items:center;
+  z-index:999;
+  display: none;
+  &.active {
+    display: grid;
+  }
+}
+
 .music-player {
   display: grid;
-  color: #fff;
+  color: hsl(0 0% 100%);
   font-family: 'Roboto', sans-serif;
   input {
     cursor:pointer;
@@ -123,6 +136,52 @@ body {
           }
         }
       }
+    }
+  }
+}
+
+[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity:0;
+}
+
+.upload-form {
+  background: hsl(0 0% 100%);
+  padding: 10px;
+  display: flex;
+  flex-direction:column;
+  gap:20px;
+  width: min(500px, 100% - 50px);
+  h1 {
+    font-size: clamp(2rem, 1.619rem + 1.5238vw, 3rem);
+    font-family: arial;
+    text-align:center;
+  }
+  .upload-area {
+    aspect-ratio:4/2;
+    display: grid;
+    place-items:center;
+    border:6px dashed hsl(200 100% 50%);
+    cursor:pointer;
+    padding: 10px;
+  }
+  .btn {
+    width: min(150px, 100%);
+    margin-inline:auto;
+    padding-block:10px;
+    border:none;
+    outline:none;
+    background: hsl(200 100% 50%);
+    font-weight: bold;
+    text-transform:uppercase;
+    border-radius: 5px;
+    color: hsl(0 0% 100%);
+    cursor:pointer;
+    transition:box-shadow .3s;
+    &:is(:focus-within, :hover) {
+      box-shadow:0 0 10px hsl(0 0% 0% / .8);
     }
   }
 }

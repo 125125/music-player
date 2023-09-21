@@ -11,11 +11,15 @@ include("config/config.php");
 </head>
 <body>
   <audio src="playlist/650661362a28b_Architects - Hereafter.mp3"></audio>
-  <div class="wrapper">
-    <form action="upload.php" method="POST" enctype="multipart/form-data">
-      <input type="file" name="mp3_file" accept=".mp3">
-      <input type="submit" value="Upload Song">
+  <div class="modal">
+    <form action="upload.php" class="upload-form" method="POST" enctype="multipart/form-data">
+      <h1>Upload Files</h1>
+      <input id="fileupload" type="file" name="mp3_files[]" accept=".mp3" multiple>
+      <div class="upload-area" onclick="document.getElementById('fileupload').click()">Click here or drag files in this area to upload</div>
+      <button class="btn btn-upload" type="submit">Upload Song(s)</button>
     </form>
+  </div>
+  <div class="wrapper">
     <div class="music-player"><img class="album" src="images/650661362e156.jpg" alt="album" />
       <div class="playlist">
         <ul>
@@ -44,6 +48,7 @@ include("config/config.php");
           <button class="previous" title="Previous Song"><i class="fa-solid fa-backward-fast"></i></button>
           <button class="next" title="Next Song"><i class="fa-solid fa-forward-fast"></i></button>
           <button class="repeat" title="Repeat Song"><i class="fa-solid fa-repeat"></i></button>
+          <button class="toggle-modal"><i class="fa-solid fa-upload"></i></button>
           <button class="playlist-btn" type="button" title="playlist"><i class="fa-solid fa-list"></i></button>
           <div class="volume-control">
             <button class="mute" type="button" title="mute"><i class="fa-solid fa-volume-high"></i></button>
@@ -57,5 +62,7 @@ include("config/config.php");
   </div>
   <script src="https://kit.fontawesome.com/a7731f7ef8.js"></script>
   <script src="js/music-player.js"></script>
+  <script src="js/toggle-modal.js"></script>
+  <script src="js/drag-and-drop.js"></script>
 </body>
 </html>
