@@ -73,12 +73,11 @@ body {
   position: fixed;
   inset: 0;
   background: hsla(0, 0%, 0%, 0.8);
-  place-items: center;
   z-index: 999;
   display: none;
 }
 .modal.active {
-  display: grid;
+  display: block;
 }
 
 .music-player {
@@ -209,6 +208,11 @@ body {
   flex-direction: column;
   gap: 20px;
   width: min(500px, 100% - 50px);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% -100%;
+  animation: move-down-form 0.3s linear forwards;
 }
 .upload-form h1 {
   font-size: clamp(2rem, 1.619rem + 1.5238vw, 3rem);
@@ -245,5 +249,11 @@ body {
   100% {
     opacity: 0;
     scale: 1;
+  }
+}
+@keyframes move-down-form {
+  100% {
+    top: 50%;
+    translate: -50% -50%;
   }
 }/*# sourceMappingURL=main.css.map */
