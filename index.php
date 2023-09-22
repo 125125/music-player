@@ -38,24 +38,28 @@ include("config/config.php");
       <div class="current-song">Now Playing: Architects - Hereafter</div>
       <div class="pause-overlay fa-solid fa-pause"></div>
       <div class="controls">
-        <div class="progress">
-          <input class="bar" type="range" value="0" />
-          <div class="time">00:00 / 00:00</div>
-        </div>
-        <div class="buttons">
-          <button class="playstate play" type="button" title="play"><i class="fa-solid fa-play"></i></button>
-          <button class="stop" type="button" title="stop"><i class="fa-solid fa-stop"></i></button>
-          <button class="previous" title="Previous Song"><i class="fa-solid fa-backward-fast"></i></button>
-          <button class="next" title="Next Song"><i class="fa-solid fa-forward-fast"></i></button>
-          <button class="repeat" title="Repeat Song"><i class="fa-solid fa-repeat"></i></button>
+        <div class="extra-controls">
           <button class="toggle-modal"><i class="fa-solid fa-upload"></i></button>
           <button class="playlist-btn" type="button" title="playlist"><i class="fa-solid fa-list"></i></button>
           <div class="volume-control">
             <button class="mute" type="button" title="mute"><i class="fa-solid fa-volume-high"></i></button>
             <div class="volume-input">
-              <input class="volume" type="range" value="100" />
+              <div class="slider-bg">
+                <input class="volume" type="range" value="100" />
+              </div>
             </div>
           </div>
+        </div>
+        <div class="progress">
+          <input class="bar" type="range" value="0" />
+          <div class="time">00:00 / 00:00</div>
+        </div>
+        <div class="buttons">
+          <button class="previous" title="Previous Song"><i class="fa-solid fa-backward-fast"></i></button>
+          <button class="playstate play" type="button" title="play"><i class="fa-solid fa-play"></i></button>
+          <button class="next" title="Next Song"><i class="fa-solid fa-forward-fast"></i></button>
+          <button class="stop" type="button" title="stop"><i class="fa-solid fa-stop"></i></button>
+          <button class="repeat" title="Repeat Song"><i class="fa-solid fa-repeat"></i></button>
         </div>
       </div>
     </div>
