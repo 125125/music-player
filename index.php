@@ -29,7 +29,7 @@ include("config/config.php");
             $result = $stmt->get_result();
             if($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
-                echo "<li data-audio-file='{$row['file']}' data-image-file='{$row['image']}'>{$row['name']}</li>";
+                echo "<li data-audio-file='{$row['file']}' data-image-file='{$row['image']}'><img class='album-cover-small' src='{$row['image']}'>{$row['name']}</li>";
               }
             }
           ?>

@@ -32,6 +32,7 @@ body {
   display: grid;
   color: hsl(0 0% 100%);
   font-family: 'Roboto', sans-serif;
+  aspect-ratio:16/9;
   input {
     cursor:pointer;
   }
@@ -63,10 +64,18 @@ body {
     background: hsl(0 0% 0% / .8);
     overflow-y:auto;
     scrollbar-gutter: stable;
+    max-width:60%;
     li {
       padding: 5px;
       user-select:none;
       cursor:pointer;
+      display: flex;
+      align-items: center;
+      gap:10px;
+      .album-cover-small {
+        width: 70px;
+        aspect-ratio:16/9;
+      }
     }
     &.active {
       display: block;

@@ -84,6 +84,7 @@ body {
   display: grid;
   color: hsl(0, 0%, 100%);
   font-family: "Roboto", sans-serif;
+  aspect-ratio: 16/9;
 }
 .music-player input {
   cursor: pointer;
@@ -117,6 +118,7 @@ body {
   background: hsla(0, 0%, 0%, 0.8);
   overflow-y: auto;
   scrollbar-gutter: stable;
+  max-width: 60%;
 }
 .music-player .playlist li {
   padding: 5px;
@@ -124,6 +126,13 @@ body {
      -moz-user-select: none;
           user-select: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.music-player .playlist li .album-cover-small {
+  width: 70px;
+  aspect-ratio: 16/9;
 }
 .music-player .playlist.active {
   display: block;
