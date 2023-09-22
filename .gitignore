@@ -1,1 +1,8 @@
 *.mp3
+images/*.png
+images/*.jpg
+images/*.jpeg
+images/*.gif
+images/*.webp
+images/*.tiff
+images/*.bmp
