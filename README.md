@@ -19,8 +19,8 @@ Custom Music Player by Tok124
 * Supports multiple file uploads
 
 ## Repeat Button
-Click once to activate Repeat Song (Blue Icon)
-Click Twice to activate Repeat Playlist (Red Icon)
+Click once to activate Repeat Song (Blue Icon)<br>
+Click Twice to activate Repeat Playlist (Red Icon)<br>
 Gray Icon = No Repeat
 
 ## How to use
@@ -32,6 +32,11 @@ Gray Icon = No Repeat
 * Chrome
 * Microsoft Edge
 
+## Known Issues
+* Volume Range Slider is not working so great in firefox (Will be fixed soon)
+* Playlist repeats even if repeat playlist button is not active
+* Sometimes you have to click twice or more to pause song (can click pause button or on album cover, same issues on both)
+
 ## Languages Used
 * HTML
 * SCSS
@@ -40,8 +45,6 @@ Gray Icon = No Repeat
 * MySQL
 
 ## Credits
-**Alexander** - Working on JavaScript
-
-**Tok124/125125/me** - Working on HTML + SCSS (And some of the php code)
-
+**Alexander** - Working on JavaScript<br>
+**Tok124/125125/me** - Working on HTML + SCSS (And some of the php code)<br>
 **ChatGPT** - Has helped me to make the things i can't do by myself in php
