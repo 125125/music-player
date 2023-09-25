@@ -103,6 +103,7 @@ body {
     transition:opacity 2s cubic-bezier(1, 0, 1, 0.54);
     .extra-controls {
       display: flex;
+      align-items:center;
       .volume-control {
         position: relative;
         &:hover .volume-input {
@@ -113,28 +114,25 @@ body {
           top:0;
           left:50%;
           height:0;
+          width: fit-content;
           overflow:hidden;
-          width: 30px;
           translate:-50% -100%;
           transition:height .1s;
           .slider-bg {
             background: hsl(0 0% 0% / .8);
             width: 100%;
-            height: 90%;
+            height: 95%;
             position: relative;
             border-radius: 5px;
+            padding: 10px;
           }
           [type="range"] {
             writing-mode: bt-lr;
             -webkit-appearance: slider-vertical;
             appearance:slider-vertical;
             width: 15px;
-            height: 80%;
+            height: 100%;
             accent-color:red;
-            position: absolute;
-            top:50%;
-            left:50%;
-            translate:-60% -50%;
           }
         }
       }

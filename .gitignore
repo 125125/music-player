@@ -6,3 +6,4 @@ images/*.gif
 images/*.webp
 images/*.tiff
 images/*.bmp
+!images/placeholder.jpg

@@ -5,6 +5,7 @@ include("config/config.php");
 $targetDirectory = "playlist/";
 $maxFileSize = 20 * 1024 * 1024;
 $allowedExtensions = ["mp3"];
+$placeholderImage = "images/placeholder.jpg";
 
 if (!file_exists($targetDirectory)) {
     mkdir($targetDirectory, 0777, true);
@@ -46,6 +47,8 @@ if(isset($_FILES['mp3_files'])) {
                 $coverFileName = "images/" . uniqid() . '.jpg';
 
                 file_put_contents($coverFileName, $coverImageData);
+            }else{
+                $coverFileName = $placeholderImage;
             }
 
             $songname = str_replace(".mp3", "", $fileName);
