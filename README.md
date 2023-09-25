@@ -32,6 +32,13 @@ Gray Icon = No Repeat
 * Chrome
 * Microsoft Edge
 
+## Languages Used
+* HTML
+* SCSS
+* JavaScript
+* php
+* MySQL
+
 ## Credits
 **Alexander** - Working on JavaScript
 **Tok124/125125/me** - Working on HTML + SCSS (And some of the php code)
