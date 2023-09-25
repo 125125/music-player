@@ -41,5 +41,7 @@ Gray Icon = No Repeat
 
 ## Credits
 **Alexander** - Working on JavaScript
+
 **Tok124/125125/me** - Working on HTML + SCSS (And some of the php code)
+
 **ChatGPT** - Has helped me to make the things i can't do by myself in php
