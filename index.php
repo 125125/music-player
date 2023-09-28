@@ -24,12 +24,17 @@ include("config/config.php");
       <div class="playlist">
         <ul>
           <?php
+            // Add delete button
             $stmt = $conn->prepare("SELECT * FROM songs");
             $stmt->execute();
             $result = $stmt->get_result();
             if($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
-                echo "<li data-audio-file='{$row['file']}' data-image-file='{$row['image']}'><img class='album-cover-small' src='{$row['image']}'>{$row['name']}</li>";
+                echo "<li data-audio-file='{$row['file']}' data-image-file='{$row['image']}'>";
+                echo "<button class='delete-button' data-delete-file='{$row['file']}'><i class='fa-solid fa-xmark'></i></button>";
+                echo "<img class='album-cover-small' src='{$row['image']}'>";
+                echo $row['name'];
+                echo "</li>";
               }
             }
           ?>

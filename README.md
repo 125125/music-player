@@ -36,6 +36,7 @@ Gray Icon = No Repeat
 * Volume Range Slider is not working so great in firefox (Will be fixed soon)
 * Playlist repeats even if repeat playlist button is not active
 * Sometimes you have to click twice or more to pause song (can click pause button or on album cover, same issues on both)
+* The first song cannot be played after downloading the repository, need to manually change path to image and mp3 file in index.php
 
 ## Languages Used
 * HTML

@@ -129,6 +129,18 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+}
+.music-player .playlist li .delete-button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  color: red;
+  cursor: pointer;
 }
 .music-player .playlist li .album-cover-small {
   width: 70px;
@@ -187,15 +199,6 @@ body {
   border-radius: 5px;
   padding: 10px;
 }
-.music-player .controls .extra-controls .volume-control .volume-input [type=range] {
-  writing-mode: bt-lr;
-  -webkit-appearance: slider-vertical;
-  -moz-appearance: slider-vertical;
-       appearance: slider-vertical;
-  width: 15px;
-  height: 100%;
-  accent-color: red;
-}
 .music-player .controls .extra-controls button {
   cursor: pointer;
   color: inherit;
@@ -233,6 +236,25 @@ body {
   width: 40px;
 }
 
+.volume {
+  rotate: 90deg;
+  width: 15px;
+  height: 100%;
+  accent-color: red;
+}
+
+@supports (-webkit-appearance: slider-vertical) {
+  .volume {
+    rotate: 0deg;
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    -moz-appearance: slider-vertical;
+         appearance: slider-vertical;
+    width: 15px;
+    height: 100%;
+    accent-color: red;
+  }
+}
 [type=file] {
   position: absolute;
   width: 0;
